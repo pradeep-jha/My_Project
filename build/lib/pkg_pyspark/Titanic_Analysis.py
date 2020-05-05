@@ -17,5 +17,5 @@ inp=spark.read.format('csv').options(header=True,inferSchema=True).option("delim
 
 inp.createOrReplaceTempView("titanic")
 res=spark.sql("select * from titanic")
-res.show(100,False)
+res.show(10,False)
 spark.stop()
