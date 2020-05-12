@@ -1,0 +1,4 @@
+1.right click on folder where the py file is
+2.pip install all the module used in program --if any
+3.run the command:
+pyinstaller --onefile ./News_Spark.py
