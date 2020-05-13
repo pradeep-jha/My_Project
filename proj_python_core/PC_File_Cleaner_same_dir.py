@@ -15,11 +15,10 @@ root_out=dirpath
 files=os.listdir(root_in)
 
 pyfiles=[]
-print("insde files**************")
 for file in files:
     list1=file.split(".")
     if(len(list1)>=2):
-        if (list1[1]=='py'):
+        if (list1[1]=='py' or list1[1]=='exe'):
             pyfiles.append(file)
 
 def ignore_scriptfiles(scrpt_files):
