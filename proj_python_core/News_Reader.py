@@ -1,3 +1,4 @@
+# install requests and pywin32 libraries first.*****
 import requests
 import json
 from win32com.client import Dispatch
