@@ -13,6 +13,21 @@ print("Script path is : " + scriptpath)
 root_in=dirpath
 root_out=dirpath
 files=os.listdir(root_in)
+
+pyfiles=[]
+print("insde files**************")
+for file in files:
+    list1=file.split(".")
+    if(len(list1)>=2):
+        if (list1[1]=='py'):
+            pyfiles.append(file)
+
+def ignore_scriptfiles(scrpt_files):
+    for script_file in scrpt_files:
+        files.remove(script_file)
+
+
+''' 
 if files.__contains__('PC_File_Cleaner.py'):
     files.remove('PC_File_Cleaner.py')
 if files.__contains__('PC_File_Cleaner_same_dir.py'):
@@ -21,9 +36,15 @@ if files.__contains__('__init__.py'):
     files.remove('__init__.py')
 if files.__contains__('PC_File_Cleaner_same_dir.exe'):
     files.remove('PC_File_Cleaner_same_dir.exe')
-print("List of files: \n****************************************************************")
+'''
+print("List of all files: \n****************************************************************")
 print(files)
-print("List of files: \n****************************************************************")
+print("List of script files to be ignored: \n****************************************************************")
+print(pyfiles)
+ignore_scriptfiles(pyfiles)
+print("List of files and folders to be categorised: \n****************************************************************")
+print(files)
+print("List of categorised files: \n****************************************************************")
 #function for creating folder
 def ifNotExistsCreate(folder):
     if not os.path.exists(root_out + "\\"+folder):

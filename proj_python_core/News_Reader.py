@@ -7,6 +7,7 @@ def speak(str):
 
 r=requests.get("http://newsapi.org/v2/top-headlines?country=in&apiKey=85944fc974d54ac5987ddd364c784dff")
 print(r.text)
+
 text=r.text
 print(type(text))
 text_json=json.loads(text)
