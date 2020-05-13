@@ -1,0 +1,295 @@
+############ Writing the content of file :file_data_extractor.py #############
+import os
+
+dirpath = os.getcwd()
+foldername = os.path.basename(dirpath)
+print("Directory name is : " + foldername)
+scriptpath = os.path.realpath(__file__)
+print("Script path is : " + scriptpath)
+file_name=os.path.basename(__file__)
+print("file_name is: "+file_name)
+
+files=os.listdir(dirpath)
+pyfiles=[]
+for file in files:
+    list1=file.split(".")
+    if(len(list1)>=2):
+        if (list1[1]=='py'):
+            pyfiles.append(file)
+print("py files are: #########")
+print(pyfiles)
+
+my_dict = {}
+file1 = open(dirpath+"/"+"python_practice_prog.txt", "w+")
+for file in pyfiles:
+        with open(file) as f:
+            #items = [i.strip() for i in f.read().split(",")]
+            key=file.replace(".py", "")
+            my_dict[key] = f.read()
+            #print(my_dict[key])
+
+            #print(f.read())
+            #print(type(file))
+            print("############ Writing the content of file :"+file +" #############\n")
+            file1.writelines("############ Writing the content of file :"+file +" #############\n")
+            file1.writelines((my_dict[key]) +"\n")
+
+file1.close()
+
+
+############ Writing the content of file :News_Reader.py #############
+# install requests and pywin32 libraries first.*****
+import requests
+import json
+from win32com.client import Dispatch
+def speak(str):
+    speak=Dispatch("SAPI.spVoice")
+    speak.Speak(str)
+
+r=requests.get("http://newsapi.org/v2/top-headlines?country=in&apiKey=85944fc974d54ac5987ddd364c784dff")
+print(r.text)
+
+text=r.text
+print(type(text))
+text_json=json.loads(text)
+print((text_json))
+article_list=text_json["articles"]
+
+print("***  Here is top "+str(len(article_list))+" news of the hour: ****")
+speak("***  Here is top "+str(len(article_list))+" news of the hour: ****")
+#for i in range(1,len(article_list)+1):
+i=1
+for l in article_list:
+    print("Headline:"+str(i)+". "+l['title'])
+    speak("Headline:"+str(i)+". "+l['title'])
+    i +=1
+
+
+
+############ Writing the content of file :Password_Generator.py #############
+import string
+import random
+
+s1=string.ascii_lowercase
+s2=string.ascii_uppercase
+s3=string.digits
+s4=string.punctuation
+
+try:
+    pass_lenghth=int(input("Enter password length: "))
+
+# for handling the error eith if..else *********************
+    '''if(pass_lenghth.isdigit()):
+       pass_lenghth=int(pass_lenghth)
+    else:
+        print("ERROR: Incorrect input! -Please enter an integer value !!")
+        exit()'''
+    s=[]
+    s.extend(list(s1))
+    s.extend(list(s2))
+    s.extend(list(s3))
+    s.extend(list(s4))
+    #print(s)
+    random.shuffle(s)
+    password="".join(s[0:pass_lenghth])
+    print("Your Password is: "+ password)
+except Exception as e:
+    print(e)
+finally:
+    print("Please rerun the program with correct integer input to generate new password !!")
+############ Writing the content of file :PC_File_Cleaner.py #############
+#import pandas as pd
+import os
+#root_in="C:\\Users\pradeep\\Desktop\\PC_file_cleaner_input\\"
+#root_out="C:\\Users\pradeep\\Desktop\\PC_File_Cleaner\\"
+dirpath = os.getcwd()
+print("current directory is : " + dirpath)
+foldername = os.path.basename(dirpath)
+print("Directory name is : " + foldername)
+
+root_in=input() #to Take input path at run time
+root_out=input() #to Take output path at run time
+files=os.listdir(root_in)
+print("List of files: \n****************************************************************")
+print(files)
+print("List of files: \n****************************************************************")
+#function for creating folder
+def ifNotExistsCreate(folder):
+    if not os.path.exists(root_out + folder):
+        os.makedirs(root_out + folder)
+#function for moving files:
+def file_mover(file_names,folder_name):
+    for file in file_names:
+        os.replace(root_in + file, root_out + folder_name +"\\"+ file)
+        print("File Moved from "+root_in + file+ " To-" +root_out + folder_name +"\\"+ file)
+
+ifNotExistsCreate("Images")
+ifNotExistsCreate("Medias")
+ifNotExistsCreate("Documents")
+ifNotExistsCreate("Others")
+imgExt=[".png",".jpg",".jpeg"]
+medExt=[".m4a",".mpg"]
+docExt=[".txt",".xlsx",".pdf",".xls",".docx",".doc",".pptx",".csv"]
+images=[]
+'''
+for file in files:
+    #print(root_in+file)
+    #print(root_out+"Images")
+    if os.path.splitext(file)[1].lower() in imgExt:
+        images.append(file)
+        print(images)
+'''
+#short formate for above code:
+
+images=[file for file in files  if os.path.splitext(file)[1].lower() in imgExt]
+print("images files :***********\n")
+print(images)
+
+medias=[file for file in files  if os.path.splitext(file)[1].lower() in medExt]
+print("media files :***********\n")
+print(medias)
+
+docs=[file for file in files  if os.path.splitext(file)[1].lower() in docExt]
+print("docs files :***********\n")
+print(docs)
+
+others=[file for file in files  if (os.path.splitext(file)[1].lower() not in docExt) \
+                                    and (os.path.splitext(file)[1].lower() not in imgExt) \
+                                    and (os.path.splitext(file)[1].lower() not in medExt) \
+                                    and os.path.isfile(root_in+file)
+        ]
+print("other files :***********\n")
+print(others)
+
+
+
+'''
+    if os.path.splitext(file_name)[1].lower() in imgExt:
+        os.replace(root_in+file,root_out+"Images\\"+file)
+
+
+    if os.path.splitext(file)[1].lower() in imgExt:
+
+        os.replace(root_in+file,root_out+"Images\\"+file)
+    if os.path.splitext(file)[1].lower() in medExt:
+        os.replace(root_in+file,root_out+"Medias\\"+file)
+    if os.path.splitext(file)[1].lower() in docExt:
+        os.replace(root_in+file,root_out+"Documents\\"+file)
+    if (os.path.splitext(file)[1].lower() not in docExt) and (os.path.splitext(file)[1].lower() not in imgExt):
+        os.replace(root_in+file,root_out+"Others\\"+file)
+        print(os.path.splitext(file)[1].lower())
+        print(root_in+file)
+'''
+file_mover(images,"Images")
+file_mover(medias,"Medias")
+file_mover(docs,"Documents")
+file_mover(others,"Others")
+############ Writing the content of file :PC_File_Cleaner_same_dir.py #############
+#import pandas as pd
+import os
+#root_in="C:\\Users\pradeep\\Desktop\\PC_file_cleaner_input\\"
+#root_out="C:\\Users\pradeep\\Desktop\\PC_File_Cleaner\\"
+dirpath = os.getcwd()
+print("current directory is : " + dirpath)
+foldername = os.path.basename(dirpath)
+print("Directory name is : " + foldername)
+scriptpath = os.path.realpath(__file__)
+print("Script path is : " + scriptpath)
+#root_in=input() #to Take input path at run time
+#root_out=input() #to Take output path at run time
+root_in=dirpath
+root_out=dirpath
+files=os.listdir(root_in)
+
+pyfiles=[]
+for file in files:
+    list1=file.split(".")
+    if(len(list1)>=2):
+        if (list1[1]=='py' or list1[1]=='exe'):
+            pyfiles.append(file)
+
+def ignore_scriptfiles(scrpt_files):
+    for script_file in scrpt_files:
+        files.remove(script_file)
+
+
+''' 
+if files.__contains__('PC_File_Cleaner.py'):
+    files.remove('PC_File_Cleaner.py')
+if files.__contains__('PC_File_Cleaner_same_dir.py'):
+    files.remove('PC_File_Cleaner_same_dir.py')
+if files.__contains__('__init__.py'):
+    files.remove('__init__.py')
+if files.__contains__('PC_File_Cleaner_same_dir.exe'):
+    files.remove('PC_File_Cleaner_same_dir.exe')
+'''
+print("List of all files: \n****************************************************************")
+print(files)
+print("List of script files to be ignored: \n****************************************************************")
+print(pyfiles)
+ignore_scriptfiles(pyfiles)
+print("List of files and folders to be categorised: \n****************************************************************")
+print(files)
+print("List of categorised files: \n****************************************************************")
+#function for creating folder
+def ifNotExistsCreate(folder):
+    if not os.path.exists(root_out + "\\"+folder):
+        os.makedirs(root_out + "\\"+folder)
+#function for moving files:
+def file_mover(file_names,folder_name):
+    for file in file_names:
+        os.replace(root_in + "\\"+file, root_out + "\\"+folder_name +"\\"+ file)
+        print("File Moved from "+root_in + "\\"+file+ " To-" +root_out + "\\"+folder_name +"\\"+ file)
+
+ifNotExistsCreate("Images")
+ifNotExistsCreate("Medias")
+ifNotExistsCreate("Documents")
+ifNotExistsCreate("Others")
+imgExt=[".png",".jpg",".jpeg"]
+medExt=[".m4a",".mpg"]
+docExt=[".txt",".xlsx",".pdf",".xls",".docx",".doc",".pptx",".csv"]
+images=[]
+'''
+for file in files:
+    #print(root_in+file)
+    #print(root_out+"Images")
+    if os.path.splitext(file)[1].lower() in imgExt:
+        images.append(file)
+        print(images)
+'''
+#short formate for above code:
+
+images=[file for file in files  if os.path.splitext(file)[1].lower() in imgExt]
+print("images files :***********\n")
+print(images)
+
+medias=[file for file in files  if os.path.splitext(file)[1].lower() in medExt]
+print("media files :***********\n")
+print(medias)
+
+docs=[file for file in files  if os.path.splitext(file)[1].lower() in docExt]
+print("docs files :***********\n")
+print(docs)
+
+others=[file for file in files  if (os.path.splitext(file)[1].lower() not in docExt) \
+                                    and (os.path.splitext(file)[1].lower() not in imgExt) \
+                                    and (os.path.splitext(file)[1].lower() not in medExt) \
+                                    and os.path.isfile(root_in+"\\"+file)
+        ]
+print("other files :***********\n")
+print(others)
+
+ifNotExistsCreate("Images")
+ifNotExistsCreate("Medias")
+ifNotExistsCreate("Documents")
+ifNotExistsCreate("Others")
+
+
+file_mover(images,"Images")
+file_mover(medias,"Medias")
+file_mover(docs,"Documents")
+file_mover(others,"Others")
+
+
+############ Writing the content of file :__init__.py #############
+
