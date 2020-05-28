@@ -1,0 +1,35 @@
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+count_m=int(input())
+'''M=[]
+for i in range(0,count_m):
+    m=int(input())
+    M.append(m)'''
+M1=input()
+M2=M1.split()
+M=list(map(int, M2))
+#print("cont_m= ")
+#print(count_m)
+#print("M_list= \n")
+#print(M)
+
+count_n=int(input())
+N1=input()
+N2=N1.split()
+N=list(map(int, N2))
+#print("cont_n= ")
+#print(count_n)
+#print("N_list= \n")
+#print(N)
+
+M_set=set(M)
+#print(M_set)
+N_set=set(N)
+#print(N_set)
+symmetric_diff=N_set.symmetric_difference(M_set)
+l=sorted(symmetric_diff)
+#list1.sort(reverse=True)
+#print(l)
+for e in l:
+    print(e)
+# Enter your code here. Read input from STDIN. Print output to STDOUT

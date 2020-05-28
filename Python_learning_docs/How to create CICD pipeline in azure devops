@@ -1,0 +1,32 @@
+Zure Devops link:
+https://dev.azure.com/pradeepjha1987/TestPipleine/_build
+pradeep.jha1987@gmail.com
+maxxxxxxx1987
+------------------------------
+open git commandline in cloned local dir.
+##make sure the requirements.txt file is created in python project folder. delete the dependencies which are not useful.
+use command in pycharm terminal:
+pip freeze>requirements.txt
+
+1)clone the azure git repo to local directory.
+2)put the projects documents in local dir.
+3)git add .
+4)git commit -m 'msg'
+5)git push
+-------------------------------
+****Create build pipeline*****
+once project is uploaded to 'repos' in devops portal.
+1)pipeline>>use the classic editor(from bottom)>new pipeline>azure repo git
+2)under task>>pipeline>>select windows2019 from agent specs.
+3)delete pytest and other options from build and test.
+3)under build and test>>use python version.
+4)under variables>>change the value of python version=3.7 only.
+5)in triggers>>check enable continuous integration.
+6)save and queue.
+--------------------------------------
+***create release pipeline*********
+1)New release pipeline>>Emptyjob>>select artifact
+2)Agent job>>select archive files.
+3)enable continuous deployement trigger in artifact box.
+4)enable pre deployement conditions in stages box.
+5)save and create release.

@@ -1,0 +1,49 @@
+---------*******************Creating Egg file**************
+1) Create A package
+2)Create .py file which contains the actual code.
+3)Create __main__.py which calls the actual py file:
+
+from pkg_pyspark import Titanic_Analysis,properties,Word_Count,Pyspark_WordCount
+
+if __name__ == '__main__':
+    print("*********************Calling the main class code *********************")
+    Titanic_Analysis
+    Word_Count
+    Pyspark_WordCount
+	
+4)
+Create setup.py  
+
+pycharm>>tools>>create setup.py
+
+code:
+from setuptools import setup,find_packages
+
+setup(
+    name='First_Project_pyspark',
+    version='1.0',
+    packages=['pkg_pyspark'],
+    url='',
+    license='',
+    author='pradeep',
+    author_email='',
+    description=''
+)
+
+5) got to pycharme terminal (found in bottom of the pycharm UI)
+
+run below command:
+python setup.py bdist_egg
+
+6).egg file will be crated in pakge_folder>>dist
+
+7)go to anaconda promt >>cd spark bin>>pyspark(this will launch jupytor UI)--this is done to to run spark submit command from anaconda python ,otherwise go to cmd>>spark/bin.
+8)
+in jupytor UI go to New>>Terminal
+
+and execute below commad to spark-submit .egg file:
+
+spark-submit --py-files C:\Users\pradeep\Desktop\pycharm_spark\First_Project_pyspark-1.0-py3.7.egg C:\User
+s\pradeep\PycharmProjects\First_Project\pkg_pyspark\__main__.py
+
+
