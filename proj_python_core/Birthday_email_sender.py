@@ -14,7 +14,10 @@ print(red)
 
 ############
 def sendEmail(to,sub,msg):
-    print(f"*********\nTo: {to}\nSubject: {sub}\nMessage: {msg} \n--------")
+    #print(f"*********\nTo: {to}\nSubject: {sub}\nMessage: {msg} \n--------")
+    #str=f"{to},{sub},{msg}"
+    str=f"*********\nTo: {to}\nSubject: {sub}\nMessage: {msg} \n--------"
+    return str
 inp=pd.read_csv("C:/Users/pradeep/Desktop/pycharm_spark/input/email_details1.csv",skiprows=0)
 inp.to_html('temp.html')
 #in_df=pd.DataFrame(inp).("1","2","3")
@@ -27,4 +30,5 @@ for index,item in inp.iterrows():
     sub=item['message']
     msg=f"Haapy Birthday {name} !!\n \t\t Wish you a successful year ahead"
     #print(f"Email To: {email},DOB:{DOB},Subject{sub},Message{msg},Name:{name}")
-    sendEmail(email,sub,msg)
+    email_details=sendEmail(email,sub,msg)
+    print(email_details)
