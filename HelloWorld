@@ -1,6 +1,4 @@
-a=int(input())
-b=int(input())
+a = int(input())
+b = int(input())
 
-print("hello world; Here is your output: ",a+b)
-
-
+print("hello world; Here is your output: ", a + b)

@@ -1,0 +1,24 @@
+-Create packages
+-Create code in xx.py, write code inside methods
+-create init.py and import the pkg.module
+-call the function from modules in init file.
+-go to terminal and create egg file using below command:
+
+python setup.py bdist_egg
+
+-cd dist
+-install the egg file
+-easy_install xxx.egg
+
+-go to python console and import the package
+import Egg_Test
+from Egg_Test import pass_gen
+
+the call the function :
+
+Egg_Test.test1()
+
+
+
+
+

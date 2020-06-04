@@ -43,7 +43,6 @@ in jupytor UI go to New>>Terminal
 
 and execute below commad to spark-submit .egg file:
 
-spark-submit --py-files C:\Users\pradeep\Desktop\pycharm_spark\First_Project_pyspark-1.0-py3.7.egg C:\User
-s\pradeep\PycharmProjects\First_Project\pkg_pyspark\__main__.py
+
 
 
