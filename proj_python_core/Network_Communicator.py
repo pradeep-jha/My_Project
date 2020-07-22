@@ -28,5 +28,5 @@ while True:
   #print(connected_ip)
   #print(IP_DEVICE)
   if connected_ip :
-	  speak("pradeep mobile just connected to the network")
+	  speak("you have a alert  !! pradeep mobile just connected to the network")
 	  #subprocess.Popen(["say", "Linnea just connected to the network"])
