@@ -11,7 +11,7 @@ def get_weather(city):
 
     #print(res.text)
     json_data=res.json()
-    pprint(json_data) # pprint for more readable json"
+    #pprint(json_data) # pprint for more readable json"
     city=json_data['name']
     temp=json_data['main']['temp']
     weather=json_data['weather'][0]['description']
