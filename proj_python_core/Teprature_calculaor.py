@@ -1,9 +1,14 @@
 import requests
+import dotenv
+import sys
+import os
+
 from pprint import pprint
 #city_name=input("Enter city name:")
 def get_weather(city):
-
-    api_key="8b683c130179b9ccf36437390ed5fd1b"
+    dotenv.load_dotenv()
+    api_key=os.getenv('apikey') # taking apikey from .env file
+    #api_key="8b683c130179b9ccf36437390ed5fd1b"
     url=f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
     #  "&units=metric" --for geting the tem in degree celcious
     #print(url)
