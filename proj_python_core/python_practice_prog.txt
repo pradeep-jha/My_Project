@@ -2,33 +2,44 @@
 import time
 from functools import reduce
 import pandas as pd
+
+
 def test():
     """this is my func # """
     print("this is my func")
+
+
 print(time.time())
 print(test.__doc__)
 
 # reduce example
-list1=[4,3,2,1,10]
-red=reduce(lambda x,y:x-y,list1)
+list1 = [4, 3, 2, 1, 10]
+red = reduce(lambda x, y: x - y, list1)
 print(red)
 
+
 ############
-def sendEmail(to,sub,msg):
-    print(f"*********\nTo: {to}\nSubject: {sub}\nMessage: {msg} \n--------")
-inp=pd.read_csv("C:/Users/pradeep/Desktop/pycharm_spark/input/email_details1.csv",skiprows=0)
+def sendEmail(to, sub, msg):
+    # print(f"*********\nTo: {to}\nSubject: {sub}\nMessage: {msg} \n--------")
+    # str=f"{to},{sub},{msg}"
+    str = f"*********\nTo: {to}\nSubject: {sub}\nMessage: {msg} \n--------"
+    return str
+
+
+inp = pd.read_csv("C:/Users/pradeep/Desktop/pycharm_spark/input/email_details1.csv", skiprows=0)
 inp.to_html('temp.html')
-#in_df=pd.DataFrame(inp).("1","2","3")
+# in_df=pd.DataFrame(inp).("1","2","3")
 print(inp)
 
-for index,item in inp.iterrows():
-    email=item['email']
-    DOB=item['dob']
-    name=item['name']
-    sub=item['message']
-    msg=f"Haapy Birthday {name} !!\n \t\t Wish you a successful year ahead"
-    #print(f"Email To: {email},DOB:{DOB},Subject{sub},Message{msg},Name:{name}")
-    sendEmail(email,sub,msg)
+for index, item in inp.iterrows():
+    email = item['email']
+    DOB = item['dob']
+    name = item['name']
+    sub = item['message']
+    msg = f"Haapy Birthday {name} !!\n \t\t Wish you a successful year ahead"
+    # print(f"Email To: {email},DOB:{DOB},Subject{sub},Message{msg},Name:{name}")
+    email_details = sendEmail(email, sub, msg)
+    print(email_details)
 
 ############ Writing the content of file :file_data_extractor.py #############
 import os
@@ -38,131 +49,325 @@ foldername = os.path.basename(dirpath)
 print("Directory name is : " + foldername)
 scriptpath = os.path.realpath(__file__)
 print("Script path is : " + scriptpath)
-file_name=os.path.basename(__file__)
-print("file_name is: "+file_name)
+file_name = os.path.basename(__file__)
+print("file_name is: " + file_name)
 
-files=os.listdir(dirpath)
-pyfiles=[]
+files = os.listdir(dirpath)
+pyfiles = []
 for file in files:
-    list1=file.split(".")
-    if(len(list1)>=2):
-        if (list1[1]=='py'):
+    list1 = file.split(".")
+    if (len(list1) >= 2):
+        if (list1[1] == 'py'):
             pyfiles.append(file)
 print("py files are: #########")
 print(pyfiles)
 
 my_dict = {}
-file1 = open(dirpath+"/"+"python_practice_prog.txt", "w+")
+file1 = open(dirpath + "/" + "python_practice_prog.txt", "w+")
 for file in pyfiles:
-        with open(file) as f:
-            #items = [i.strip() for i in f.read().split(",")]
-            key=file.replace(".py", "")
-            my_dict[key] = f.read()
-            #print(my_dict[key])
+    with open(file) as f:
+        # items = [i.strip() for i in f.read().split(",")]
+        key = file.replace(".py", "")
+        my_dict[key] = f.read()
+        # print(my_dict[key])
 
-            #print(f.read())
-            #print(type(file))
-            print("############ Writing the content of file :"+file +" #############\n")
-            file1.writelines("############ Writing the content of file :"+file +" #############\n")
-            file1.writelines((my_dict[key]) +"\n")
+        # print(f.read())
+        # print(type(file))
+        print("############ Writing the content of file :" + file + " #############\n")
+        file1.writelines("############ Writing the content of file :" + file + " #############\n")
+        file1.writelines((my_dict[key]) + "\n")
 
 file1.close()
 
+############ Writing the content of file :Jarvis_Chatboat.py #############
+import pyttsx3
+import speech_recognition as sr
+import pyaudio
+from win32com.client import Dispatch
+import datetime
+import time
+import os
+import webbrowser
+import random
+from proj_python_core import Teprature_calculaor
+
+# from decouple import config
+
+def speak(str):
+    speak = Dispatch("SAPI.spVoice")
+    speak.Speak(str)
+
+def takeCommand():
+    r=sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        r.pause_threshold=1
+        audio=r.listen(source)
+    try:
+        print("Recognizing...")
+        query=r.recognize_google(audio,language='en-in')
+        print(f"user said :{query}\n")
+    except Exception as e:
+        print(e)
+        print("I am sorry! Say that again please..")
+        #speak("I am sorry! Say that again please..")
+        return "None"
+    return query
+if __name__=="__main__":
+    while True:
+        speak("Hi There! How may I help you")
+        audio=takeCommand()
+        if "time" in str.lower(audio):
+            time_12 = time.strftime("%I:%M %p")
+            #time_12_h_m_s = time.strftime("%I:%M:%S %p")
+            print(time_12)
+            speak(f"The current time is: {time_12}")
+        elif "audio" in str.lower(audio):
+            music_dir="E:\songs"
+            songs=os.listdir(music_dir)
+            #print(songs)
+            audio_songs = []
+            for song in songs:
+                if (song[len(song) - 3:] == "mp3"):
+                    audio_songs.append(song)
+            print(audio_songs)
+            n = random.randint(0, len(audio_songs)-1)
+            print("song number: ",n)
+            song_name_noext = audio_songs[n][:len(audio_songs[n])-4]
+            print(song_name_noext)
+            song_name=audio_songs[n]
+            print(song_name)
+            speak(f"opening the audio song {song_name_noext}  from local folder")
+            os.startfile(os.path.join(music_dir, song_name))
+
+        elif "video" in str.lower(audio):
+            music_dir="E:\songs"
+            songs=os.listdir(music_dir)
+            #print(songs)
+            vedio_songs = []
+            for song in songs:
+                if (song[len(song) - 3:] == "mp4"):
+                    vedio_songs.append(song)
+            print(vedio_songs)
+            n = random.randint(0, len(vedio_songs)-1)
+            print("song number: ", n)
+            song_name_noext = vedio_songs[n][:len(vedio_songs[n]) - 4]
+            print(song_name_noext)
+            song_name = vedio_songs[n]
+            print(song_name)
+            speak(f"opening the video song {song_name_noext}  from local folder")
+            os.startfile(os.path.join(music_dir, song_name))
+
+        elif "google" in str.lower(audio):
+            speak("opening google in internet explorer!")
+            webbrowser.open("google.com")
+            # time.sleep(10)
+            # audio = takeCommand()
+        elif "youtube news" in str.lower(audio):
+                speak("opening republic news in youtube")
+                webbrowser.open("https://www.youtube.com/watch?v=ckKA-0MUm4E")
+        elif "playlist" in str.lower(audio):
+                speak("opening  songs from your playlist in youtube")
+                webbrowser.open("https://www.youtube.com/watch?v=m4wzXcfbkOQ&list=PLGsuPLNadTJLEOByd1rQs2mG9AUIH9Jj9")
+        elif "notepad" in str.lower(audio):
+                speak("opening a new Notepad")
+                os.startfile("C:\\Users\\pradeep\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories\\Notepad")
+        elif "excel" in str.lower(audio):
+                speak("opening a new excel spreadsheet")
+                os.startfile("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Office 2013\\Excel 2013")
+        elif "quick note" in str.lower(audio):
+            speak("opening a new quick note")
+            os.startfile("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Office 2013\\Excel 2013")
+
+        elif "ppt" in str.lower(audio):
+                speak("opening a new Power point presentation")
+                os.startfile("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Office 2013\\PowerPoint 2013")
+        elif "word" in str.lower(audio):
+                speak("opening a new MS word file")
+                os.startfile("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Office 2013\\Word 2013")
+        elif "presentation" in str.lower(audio):
+                speak("opening hadoop presentation")
+                os.startfile("C:\\Users\\pradeep\\Desktop\\python_autmation_codes\\ppt_sample\\Hadoop.pptx")
+        elif "headlines" in str.lower(audio):
+                os.startfile("C:\\Users\\pradeep\\Desktop\\News_Reader.exe")
+        elif "weather" in str.lower(audio):
+                speak("please tell the city name")
+                city = takeCommand()
+                city_name = str.lower(city)
+                if city_name !='none':
+                    print("city name is :",city_name)
+                    try:
+                        weather = Teprature_calculaor.get_weather(city_name)
+                        speak(weather)
+                    except Exception as e:
+                        #speak("got am exception")
+                        #print(e)
+                        speak(f"{city_name} is not a correct city name")
+                        speak("please tell the correct city name")
+                        try:
+                            city = takeCommand()
+                            city_name = str.lower(city)
+                            if city_name != 'none':
+                                print("city name is :", city_name)
+                                weather = Teprature_calculaor.get_weather(city_name)
+                                speak(weather)
+                        except Exception as e:
+                            speak("No correct city name found! Taking you to main menu...")
+                            speak("........")
+                            #audio = takeCommand()
+                        # speak("I am sorry! Say that again please..")
+        elif "stop" in str.lower(audio):
+                speak("THANK YOU ! JARVIS shutting down!")
+                exit()
+############ Writing the content of file :Network_Communicator.py #############
+import sys
+import subprocess
+from win32com.client import Dispatch
+import os
+
+
+# from decouple import config
+
+def speak(str):
+    speak = Dispatch("SAPI.spVoice")
+    speak.Speak(str)
+
+
+IP_NETWORK = ['192.168.0.101', '192.168.0.102', '192.168.0.103']
+# IP_DEVICE = '192.168.0.103'
+for ip in IP_NETWORK:
+
+    proc = subprocess.Popen(["ping", ip], stdout=subprocess.PIPE)
+    print(proc.pid)
+    line = proc.stdout.readline()
+    print(line.split())
+    print(proc.stdout.readline())
+    #
+    # print(proc.stdout.readline().split(''))
+    while True:
+        line = proc.stdout.readline()
+        print(line)
+        if not line:
+            break
+        # the real code does filtering here
+        # print(line.decode('utf-8').lower())
+        connected_ip1 = line.decode('utf-8').__contains__("Reply from 192.168.0.101")
+        connected_ip2 = line.decode('utf-8').__contains__("Reply from 192.168.0.102")
+        connected_ip3 = line.decode('utf-8').__contains__("Reply from 192.168.0.103")
+        print("connected_ip1 :" , connected_ip1)
+        print("connected_ip2 :" , connected_ip2)
+        print("connected_ip3 :" , connected_ip3)
+        # print(IP_DEVICE)
+        if connected_ip1 is True:
+            speak("you have a alert  !! Anupama mobile is connected to the network")
+        if connected_ip2 is True:
+            speak("you have a alert  !! pradeep Computer is connected to the network")
+        if connected_ip3 is True:
+            speak("you have a alert  !! pradeep mobile is connected to the network")
+            # subprocess.Popen(["say", "Linnea just connected to the network"])
 
 ############ Writing the content of file :News_Reader.py #############
 # install requests and pywin32 libraries first.*****
 import requests
 import json
 from win32com.client import Dispatch
+
+
 def speak(str):
-    speak=Dispatch("SAPI.spVoice")
+    speak = Dispatch("SAPI.spVoice")
     speak.Speak(str)
 
-r=requests.get("http://newsapi.org/v2/top-headlines?country=in&apiKey=85944fc974d54ac5987ddd364c784dff")
+
+r = requests.get("http://newsapi.org/v2/top-headlines?country=in&apiKey=85944fc974d54ac5987ddd364c784dff")
 print(r.text)
 
-text=r.text
+text = r.text
 print(type(text))
-text_json=json.loads(text)
+text_json = json.loads(text)
 print((text_json))
-article_list=text_json["articles"]
+article_list = text_json["articles"]
 
-print("***  Here is top "+str(len(article_list))+" news of the hour: ****")
-speak("***  Here is top "+str(len(article_list))+" news of the hour: ****")
-#for i in range(1,len(article_list)+1):
-i=1
+print("***  Here is top " + str(len(article_list)) + " news of the hour: ****")
+speak("***  Here is top " + str(len(article_list)) + " news of the hour: ****")
+# for i in range(1,len(article_list)+1):
+i = 1
 for l in article_list:
-    print("Headline:"+str(i)+". "+l['title'])
-    speak("Headline:"+str(i)+". "+l['title'])
-    i +=1
-
-
+    print("Headline:" + str(i) + ". " + l['title'])
+    speak("Headline:" + str(i) + ". " + l['title'])
+    i += 1
 
 ############ Writing the content of file :Password_Generator.py #############
 import string
 import random
 
-s1=string.ascii_lowercase
-s2=string.ascii_uppercase
-s3=string.digits
-s4=string.punctuation
+s1 = string.ascii_lowercase
+s2 = string.ascii_uppercase
+s3 = string.digits
+s4 = string.punctuation
 
 try:
-    pass_lenghth=int(input("Enter password length: "))
+    pass_lenghth = int(input("Enter password length: "))
 
-# for handling the error eith if..else *********************
+    # for handling the error eith if..else *********************
     '''if(pass_lenghth.isdigit()):
        pass_lenghth=int(pass_lenghth)
     else:
         print("ERROR: Incorrect input! -Please enter an integer value !!")
         exit()'''
-    s=[]
+    s = []
     s.extend(list(s1))
     s.extend(list(s2))
     s.extend(list(s3))
     s.extend(list(s4))
-    #print(s)
+    # print(s)
     random.shuffle(s)
-    password="".join(s[0:pass_lenghth])
-    print("Your Password is: "+ password)
+    password = "".join(s[0:pass_lenghth])
+    print("Your Password is: " + password)
 except Exception as e:
     print(e)
 finally:
     print("Please rerun the program with correct integer input to generate new password !!")
+
 ############ Writing the content of file :PC_File_Cleaner.py #############
-#import pandas as pd
+# import pandas as pd
 import os
-#root_in="C:\\Users\pradeep\\Desktop\\PC_file_cleaner_input\\"
-#root_out="C:\\Users\pradeep\\Desktop\\PC_File_Cleaner\\"
+
+# root_in="C:\\Users\pradeep\\Desktop\\PC_file_cleaner_input\\"
+# root_out="C:\\Users\pradeep\\Desktop\\PC_File_Cleaner\\"
 dirpath = os.getcwd()
 print("current directory is : " + dirpath)
 foldername = os.path.basename(dirpath)
 print("Directory name is : " + foldername)
 
-root_in=input() #to Take input path at run time
-root_out=input() #to Take output path at run time
-files=os.listdir(root_in)
+root_in = input()  # to Take input path at run time
+root_out = input()  # to Take output path at run time
+files = os.listdir(root_in)
 print("List of files: \n****************************************************************")
 print(files)
 print("List of files: \n****************************************************************")
-#function for creating folder
+
+
+# function for creating folder
 def ifNotExistsCreate(folder):
     if not os.path.exists(root_out + folder):
         os.makedirs(root_out + folder)
-#function for moving files:
-def file_mover(file_names,folder_name):
+
+
+# function for moving files:
+def file_mover(file_names, folder_name):
     for file in file_names:
-        os.replace(root_in + file, root_out + folder_name +"\\"+ file)
-        print("File Moved from "+root_in + file+ " To-" +root_out + folder_name +"\\"+ file)
+        os.replace(root_in + file, root_out + folder_name + "\\" + file)
+        print("File Moved from " + root_in + file + " To-" + root_out + folder_name + "\\" + file)
+
 
 ifNotExistsCreate("Images")
 ifNotExistsCreate("Medias")
 ifNotExistsCreate("Documents")
 ifNotExistsCreate("Others")
-imgExt=[".png",".jpg",".jpeg"]
-medExt=[".m4a",".mpg"]
-docExt=[".txt",".xlsx",".pdf",".xls",".docx",".doc",".pptx",".csv"]
-images=[]
+imgExt = [".png", ".jpg", ".jpeg"]
+medExt = [".m4a", ".mpg"]
+docExt = [".txt", ".xlsx", ".pdf", ".xls", ".docx", ".doc", ".pptx", ".csv"]
+images = []
 '''
 for file in files:
     #print(root_in+file)
@@ -171,29 +376,27 @@ for file in files:
         images.append(file)
         print(images)
 '''
-#short formate for above code:
+# short formate for above code:
 
-images=[file for file in files  if os.path.splitext(file)[1].lower() in imgExt]
+images = [file for file in files if os.path.splitext(file)[1].lower() in imgExt]
 print("images files :***********\n")
 print(images)
 
-medias=[file for file in files  if os.path.splitext(file)[1].lower() in medExt]
+medias = [file for file in files if os.path.splitext(file)[1].lower() in medExt]
 print("media files :***********\n")
 print(medias)
 
-docs=[file for file in files  if os.path.splitext(file)[1].lower() in docExt]
+docs = [file for file in files if os.path.splitext(file)[1].lower() in docExt]
 print("docs files :***********\n")
 print(docs)
 
-others=[file for file in files  if (os.path.splitext(file)[1].lower() not in docExt) \
-                                    and (os.path.splitext(file)[1].lower() not in imgExt) \
-                                    and (os.path.splitext(file)[1].lower() not in medExt) \
-                                    and os.path.isfile(root_in+file)
-        ]
+others = [file for file in files if (os.path.splitext(file)[1].lower() not in docExt) \
+          and (os.path.splitext(file)[1].lower() not in imgExt) \
+          and (os.path.splitext(file)[1].lower() not in medExt) \
+          and os.path.isfile(root_in + file)
+          ]
 print("other files :***********\n")
 print(others)
-
-
 
 '''
     if os.path.splitext(file_name)[1].lower() in imgExt:
@@ -212,33 +415,36 @@ print(others)
         print(os.path.splitext(file)[1].lower())
         print(root_in+file)
 '''
-file_mover(images,"Images")
-file_mover(medias,"Medias")
-file_mover(docs,"Documents")
-file_mover(others,"Others")
+file_mover(images, "Images")
+file_mover(medias, "Medias")
+file_mover(docs, "Documents")
+file_mover(others, "Others")
+
 ############ Writing the content of file :PC_File_Cleaner_same_dir.py #############
-#import pandas as pd
+# import pandas as pd
 import os
-#root_in="C:\\Users\pradeep\\Desktop\\PC_file_cleaner_input\\"
-#root_out="C:\\Users\pradeep\\Desktop\\PC_File_Cleaner\\"
+
+# root_in="C:\\Users\pradeep\\Desktop\\PC_file_cleaner_input\\"
+# root_out="C:\\Users\pradeep\\Desktop\\PC_File_Cleaner\\"
 dirpath = os.getcwd()
 print("current directory is : " + dirpath)
 foldername = os.path.basename(dirpath)
 print("Directory name is : " + foldername)
 scriptpath = os.path.realpath(__file__)
 print("Script path is : " + scriptpath)
-#root_in=input() #to Take input path at run time
-#root_out=input() #to Take output path at run time
-root_in=dirpath
-root_out=dirpath
-files=os.listdir(root_in)
+# root_in=input() #to Take input path at run time
+# root_out=input() #to Take output path at run time
+root_in = dirpath
+root_out = dirpath
+files = os.listdir(root_in)
 
-pyfiles=[]
+pyfiles = []
 for file in files:
-    list1=file.split(".")
-    if(len(list1)>=2):
-        if (list1[1]=='py' or list1[1]=='exe'):
+    list1 = file.split(".")
+    if (len(list1) >= 2):
+        if (list1[1] == 'py' or list1[1] == 'exe'):
             pyfiles.append(file)
+
 
 def ignore_scriptfiles(scrpt_files):
     for script_file in scrpt_files:
@@ -263,24 +469,29 @@ ignore_scriptfiles(pyfiles)
 print("List of files and folders to be categorised: \n****************************************************************")
 print(files)
 print("List of categorised files: \n****************************************************************")
-#function for creating folder
+
+
+# function for creating folder
 def ifNotExistsCreate(folder):
-    if not os.path.exists(root_out + "\\"+folder):
-        os.makedirs(root_out + "\\"+folder)
-#function for moving files:
-def file_mover(file_names,folder_name):
+    if not os.path.exists(root_out + "\\" + folder):
+        os.makedirs(root_out + "\\" + folder)
+
+
+# function for moving files:
+def file_mover(file_names, folder_name):
     for file in file_names:
-        os.replace(root_in + "\\"+file, root_out + "\\"+folder_name +"\\"+ file)
-        print("File Moved from "+root_in + "\\"+file+ " To-" +root_out + "\\"+folder_name +"\\"+ file)
+        os.replace(root_in + "\\" + file, root_out + "\\" + folder_name + "\\" + file)
+        print("File Moved from " + root_in + "\\" + file + " To-" + root_out + "\\" + folder_name + "\\" + file)
+
 
 ifNotExistsCreate("Images")
 ifNotExistsCreate("Medias")
 ifNotExistsCreate("Documents")
 ifNotExistsCreate("Others")
-imgExt=[".png",".jpg",".jpeg"]
-medExt=[".m4a",".mpg"]
-docExt=[".txt",".xlsx",".pdf",".xls",".docx",".doc",".pptx",".csv"]
-images=[]
+imgExt = [".png", ".jpg", ".jpeg"]
+medExt = [".m4a", ".mpg"]
+docExt = [".txt", ".xlsx", ".pdf", ".xls", ".docx", ".doc", ".pptx", ".csv"]
+images = []
 '''
 for file in files:
     #print(root_in+file)
@@ -289,25 +500,25 @@ for file in files:
         images.append(file)
         print(images)
 '''
-#short formate for above code:
+# short formate for above code:
 
-images=[file for file in files  if os.path.splitext(file)[1].lower() in imgExt]
+images = [file for file in files if os.path.splitext(file)[1].lower() in imgExt]
 print("images files :***********\n")
 print(images)
 
-medias=[file for file in files  if os.path.splitext(file)[1].lower() in medExt]
+medias = [file for file in files if os.path.splitext(file)[1].lower() in medExt]
 print("media files :***********\n")
 print(medias)
 
-docs=[file for file in files  if os.path.splitext(file)[1].lower() in docExt]
+docs = [file for file in files if os.path.splitext(file)[1].lower() in docExt]
 print("docs files :***********\n")
 print(docs)
 
-others=[file for file in files  if (os.path.splitext(file)[1].lower() not in docExt) \
-                                    and (os.path.splitext(file)[1].lower() not in imgExt) \
-                                    and (os.path.splitext(file)[1].lower() not in medExt) \
-                                    and os.path.isfile(root_in+"\\"+file)
-        ]
+others = [file for file in files if (os.path.splitext(file)[1].lower() not in docExt) \
+          and (os.path.splitext(file)[1].lower() not in imgExt) \
+          and (os.path.splitext(file)[1].lower() not in medExt) \
+          and os.path.isfile(root_in + "\\" + file)
+          ]
 print("other files :***********\n")
 print(others)
 
@@ -316,12 +527,82 @@ ifNotExistsCreate("Medias")
 ifNotExistsCreate("Documents")
 ifNotExistsCreate("Others")
 
+file_mover(images, "Images")
+file_mover(medias, "Medias")
+file_mover(docs, "Documents")
+file_mover(others, "Others")
 
-file_mover(images,"Images")
-file_mover(medias,"Medias")
-file_mover(docs,"Documents")
-file_mover(others,"Others")
+############ Writing the content of file :PDF_Reader.py #############
+import pdfplumber
+input_path="C:\\Users\\pradeep\\Desktop\Pycharm_PDFreader\\input\\80C_ELSS Mutual Fund.pdf"
+with pdfplumber.open(input_path) as pdf:
+    pages=pdf.pages[1]
+    text=pages.extract_text()
+    print(text)
+############ Writing the content of file :py_unit_test.py #############
+import math
 
+
+def add(a, b=7):
+    return a + b
+
+############ Writing the content of file :Teprature_calculaor.py #############
+import requests
+import dotenv
+import sys
+import os
+
+from pprint import pprint
+#city_name=input("Enter city name:")
+def get_weather(city):
+    dotenv.load_dotenv()
+    api_key=os.getenv('apikey') # taking apikey from .env file
+    #api_key="8b683c130179b9ccf36437390ed5fd1b"
+    url=f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
+    #  "&units=metric" --for geting the tem in degree celcious
+    #print(url)
+    res=requests.get(url)
+
+    #print(res.text)
+    json_data=res.json()
+    #pprint(json_data) # pprint for more readable json"
+    city=json_data['name']
+    temp=json_data['main']['temp']
+    weather=json_data['weather'][0]['description']
+    wind_speed=json_data['wind']['speed']
+    latitude=json_data['coord']['lat']
+    longitude=json_data['coord']['lon']
+
+    print("temp= ",temp)
+    print("weather= ",weather)
+    print("wind_speed= ",wind_speed)
+    print("latitude= ",latitude)
+    print("longitude= ",longitude)
+    weather_details=f" The temprature of {city} is {temp} degree celsius and the weather is {weather}"
+    return weather_details
+
+#weather=get_weather(city_name)
+#print(weather)
+############ Writing the content of file :test_Birthday_email_sender.py #############
+import pytest
+from proj_python_core import Birthday_email_sender as b
+
+
+def test_send_email():
+    str = b.sendEmail('a', 'b', 'c')
+    print("111xxxxxxxxxxxxxxxxxxxxxxxxxxxxx123 \n")
+    print(str)
+    assert str == f"*********\nTo: a\nSubject: b\nMessage: c \n--------"
+
+############ Writing the content of file :test_py_unit_test.py #############
+from proj_python_core import py_unit_test
+
+
+def test_add():
+    assert py_unit_test.add(5, 4) == 9
+    assert py_unit_test.add(15) == 22
+
+############ Writing the content of file :whatsapp.py #############
 
 ############ Writing the content of file :__init__.py #############
 
