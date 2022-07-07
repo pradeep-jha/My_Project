@@ -1,0 +1,40 @@
+{
+	"name": "linkedService_HDI",
+	"properties": {
+		"annotations": [],
+		"type": "HDInsightOnDemand",
+		"typeProperties": {
+			"clusterType": "spark",
+			"clusterSize": 4,
+			"timeToLive": "00:15:00",
+			"version": "4.0",
+			"hostSubscriptionId": "0f34bf4c-54a5-4f11-8f3c-fb5617afaafb",
+			"clusterResourceGroup": "pradeep_resourcegrp",
+			"servicePrincipalId": "1234",
+			"tenant": "f5896156-919e-493b-8a01-0d918daf674d",
+			"clusterNamePrefix": "",
+			"sparkVersion": "",
+			"servicePrincipalKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "HDinsightservice"
+			},
+			"additionalLinkedServiceNames": [
+				{
+					"referenceName": "linkedService_az_blobstorage",
+					"type": "LinkedServiceReference"
+				}
+			],
+			"linkedServiceName": {
+				"referenceName": "linkedService_az_blobstorage",
+				"type": "LinkedServiceReference"
+			},
+			"headNodeSize": "",
+			"dataNodeSize": "",
+			"zookeeperNodeSize": ""
+		}
+	}
+}
