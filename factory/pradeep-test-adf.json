@@ -1,0 +1,9 @@
+{
+	"name": "pradeep-test-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ceec94b1-9cc7-44be-9b58-db4840d4d43e",
+		"tenantId": "f5896156-919e-493b-8a01-0d918daf674d"
+	}
+}
