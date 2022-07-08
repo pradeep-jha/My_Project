@@ -23,7 +23,7 @@
 					}
 				},
 				"linkedServiceName": {
-					"referenceName": "linkedService_HDI",
+					"referenceName": "AzureHDInsightLinkedService",
 					"type": "LinkedServiceReference"
 				}
 			}
