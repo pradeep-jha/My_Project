@@ -14,7 +14,13 @@
 			"servicePrincipalId": "b4531eb9-5407-4609-9770-d8334971ea06",
 			"tenant": "f5896156-919e-493b-8a01-0d918daf674d",
 			"clusterNamePrefix": "",
-			"additionalLinkedServiceNames": [],
+			"clusterUserName": "admin",
+			"additionalLinkedServiceNames": [
+				{
+					"referenceName": "linkedService_az_blobstorage",
+					"type": "LinkedServiceReference"
+				}
+			],
 			"linkedServiceName": {
 				"referenceName": "linkedService_az_blobstorage",
 				"type": "LinkedServiceReference"
@@ -22,7 +28,7 @@
 			"headNodeSize": "",
 			"dataNodeSize": "",
 			"zookeeperNodeSize": "",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDBFQUUzRkRELTIxNzYtNDk3Qi1CMjE0LThGREUxMjMyQzVEM184NzdmZmEzMS05N2ViLTQyYWYtYmVmMy0xZGMyMjc1NWE0NTQiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDBFQUUzRkRELTIxNzYtNDk3Qi1CMjE0LThGREUxMjMyQzVEM19mNzhhNDFjYi0zZDMzLTQxYWMtOGY1My1hNWNmZGMwN2M1MjMiDQp9"
 		}
 	}
 }
