@@ -26,6 +26,105 @@
 					"referenceName": "AzureHDInsightLinkedService",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "dbo.Inventory"
+					},
+					{
+						"name": "Destination",
+						"value": "container1/onpremdata/inventory"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "id",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 1
+								}
+							},
+							{
+								"source": {
+									"name": "name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 2
+								}
+							},
+							{
+								"source": {
+									"name": "quantity",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 3
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SqlServerlinkedservices",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
