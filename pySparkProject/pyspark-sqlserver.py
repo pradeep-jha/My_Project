@@ -9,10 +9,13 @@ conf = SparkConf()
 
 spark=SparkSession.builder.appName("spark app").master("local[*]").\
     config("spark.driver.extraClassPath","C:\\Users\\PRADEEP\\PycharmProjects\\First_Project\\pySparkProject\\sqljdbc42.jar").\
+    config("spark.sql.parquet.compression.codec","gzip").\
     getOrCreate()
+#
 print(spark.version)
+print(spark.sparkContext.getConf().get(("spark.sql.parquet.compression.codec")))
 spark.sparkContext.setLogLevel("WARN")
-input=spark.read.option('delimiter','\t').option('header',True).csv("C:\\Users\\PRADEEP\\PycharmProjects\\First_Project\\pySparkProject\\inputs\\input.csv")
+input=spark.read.option('delimiter',',').option('header',True).csv("C:\\Users\\PRADEEP\\PycharmProjects\\First_Project\\pySparkProject\\inputs\\input.csv")
 # input2=spark.read.csv("C:\\Users\\PRADEEP\\Downloads\\tx.csv\\fl.csv")
 input.show()
 # set variable to be used to connect the database
@@ -47,4 +50,5 @@ print(spark.sparkContext.defaultMinPartitions)
 print(joindf.rdd.getNumPartitions())
 print(input2.rdd.getNumPartitions())
 print(jdbcDF.rdd.getNumPartitions())
-joindf.coalesce(1).write.parquet("C:\\Users\\PRADEEP\\PycharmProjects\\First_Project\\pySparkProject\\outputs\\"+out_file)
+joindf.coalesce(1).write.option("compression","gzip").parquet("C:\\Users\\PRADEEP\\PycharmProjects\\First_Project\\pySparkProject\\outputs\\"+out_file)
+#joindf.coalesce(1).write.csv("C:\\Users\\PRADEEP\\PycharmProjects\\First_Project\\pySparkProject\\outputs\\"+out_file)

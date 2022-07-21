@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/First_Project.iml" filepath="$PROJECT_DIR$/.idea/First_Project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../pySparkProject/.idea/pySparkProject.iml" filepath="$PROJECT_DIR$/../pySparkProject/.idea/pySparkProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../pythonProject/.idea/pythonProject.iml" filepath="$PROJECT_DIR$/../pythonProject/.idea/pythonProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pySparkProject/.idea/pySparkProject.iml" filepath="$PROJECT_DIR$/pySparkProject/.idea/pySparkProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pythonProject/.idea/pythonProject.iml" filepath="$PROJECT_DIR$/pythonProject/.idea/pythonProject.iml" />
     </modules>
   </component>
 </project>
