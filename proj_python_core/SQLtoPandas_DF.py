@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+import matplotlib.pyplot as plt
 
 conn = sqlite3.connect('test_database')
 c = conn.cursor()
@@ -35,4 +36,7 @@ sql_query = pd.read_sql_query('''
                                ''', conn)
 
 df = pd.DataFrame(sql_query, columns=['product_id', 'product_name', 'price'])
-print(df)
+df2=df.head(10000)
+# print(df)
+df2.plot(x='product_name',y='product_id',kind='bar')
+plt.show()
