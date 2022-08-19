@@ -1,6 +1,8 @@
 import logging
+import time
 
 from pyspark.sql import SparkSession
+from pyspark import *
 from pyspark.sql.functions import col, when, isnan, count
 try:
     logging.basicConfig(level=logging.INFO,filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s')
@@ -10,17 +12,19 @@ try:
     logging.warning('This is a warning message')
     logging.error('This is an error message')
     logging.critical('This is a critical message')
-
-    spark=SparkSession.builder.appName("Spark_MissingValues").master("local[*]").getOrCreate()
+    conf=SparkConf()
+    spark=SparkSession.builder.appName("spark_logging").master("local[*]").getOrCreate()
     # spark.sparkContext.setLogLevel("INFO")
     logging.info('This is an info message')
     df=spark.read.csv("inputs/nba2.csv")
     logging.error("Exception occurred", exc_info=True)
 
     print("getting conf details")
+    print(spark.sparkContext.getConf().getAll())
     print(spark.sparkContext.getConf().get("spark.executor.instances"))
+    # time.sleep(1000000)
+    logging.info(spark.sparkContext.getConf().getAll(),exc_info=True)
     print(df.rdd.getNumPartitions())
-
     print(df.count())
     df.show(truncate=False)
     df_na=df.filter(df["_c5"].isNull())

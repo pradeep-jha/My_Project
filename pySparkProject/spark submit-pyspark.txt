@@ -1,0 +1,4 @@
+
+
+spark-submit --master local[*] --deploy-mode client --num-executors 10  C:\Users\PRADEEP\PycharmProjects\First_Project\pySparkProject\Pyspark_HelloWorld.py
+
