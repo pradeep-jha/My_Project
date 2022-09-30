@@ -3,7 +3,7 @@ cffi==1.14.0
 chardet==3.0.4
 cryptography==2.9.2
 idna==2.9
-joblib==0.15.1
+joblib==1.2.0
 ldap3==2.7
 numpy==1.18.1
 pandas==1.0.3
