@@ -54,9 +54,9 @@ schema=StructType([StructField("id",IntegerType(),True),
                    StructField("Address",StringType(),True),
                    StructField("Price",FloatType(),True),
                    StructField("date",DateType(),True)
-
                    ])
-
+print("*****Printing Data Type of Schema****")
+print(type(schema))
 df4=spark.read.option('delimiter',',').csv('inputs/data.csv',schema=schema)
 print(df4.printSchema())
 print(df4.show(100,False))

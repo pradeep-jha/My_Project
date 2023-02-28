@@ -1,0 +1,14 @@
+1. if data is 10 GB
+2.Total Worker Nodes=10
+3.Core per node=16
+4.RAM per Node=16GB
+
+then how we calculate the executor conf:
+
+10 GB on HDFS=10*1024MB/128= 80 Blocks=80 partition
+size of each partition=128MB
+
+avg partion on each node=80/10=8 partitions=8*128MB=1 GB
+
+
+

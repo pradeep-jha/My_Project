@@ -2,6 +2,7 @@ import logging
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when, isnan, count
+import chispa
 try:
     logging.basicConfig(level=logging.INFO,filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s')
     logging.warning('This will get logged to a file')
@@ -15,6 +16,23 @@ try:
     # spark.sparkContext.setLogLevel("INFO")
     logging.info('This is an info message')
     df=spark.read.csv("inputs/nba2.csv")
+    df_in = spark.read.option("Header",True).option("InferSchema",True).csv("inputs/nba.csv")
+    df2_in=spark.read.option("Header",True).option("InferSchema",True).csv("inputs/nba2.csv")
+    if(df_in.schema==df2_in.schema) & (df_in.collect()==df2_in.collect()):
+        print("df_in is matching with df2_in")
+    print(df_in.columns)
+    print(df_in.printSchema())
+    a = df_in.columns
+    dtype=df_in.dtypes
+    print(a)
+    print(type(a))
+    print(dtype)
+    print(type(dtype))
+    for i in dtype:
+        print(i)
+        print(i[0])
+        print(type(i))
+
     logging.error("Exception occurred", exc_info=True)
 
     print("getting conf details")

@@ -1,9 +1,8 @@
-from pandas.core.algorithms import isin
+import time
 
 from pyspark.sql import SparkSession
 from pyspark import SparkConf,SparkContext
-import pandas as pd
-
+# import pandas as pd
 from pyspark.sql import functions as f
 from pyspark.sql.functions import col
 
@@ -20,7 +19,7 @@ spark=SparkSession.builder.enableHiveSupport().appName("spark app").master("loca
 
 spark.sparkContext.setLogLevel("WARN")
 '''*******Word count by creating RDD******'''
-input_rdd=spark.sparkContext.textFile("inputs\data.csv")
+input_rdd=spark.sparkContext.textFile(r"C:\Users\PRADEEP\PycharmProjects\First_Project\pySparkProject\inputs\data.csv")
 print(input_rdd.getNumPartitions())
 cnt=input_rdd.mapPartitions(lambda it: [sum(1 for _ in it)])
 # print(cnt.collect())
@@ -29,7 +28,7 @@ wordcount=input_rdd.flatMap(lambda x:x.split(',')).map(lambda x:(x,1)).reduceByK
 print(wordcount.collect())
 ''' *******Creating DF'''
 input=spark.read.option("header",True).csv("C:\\Users\\PRADEEP\\Downloads\\tx.csv\\tx.csv")
-
+time.sleep(300)
 inp=input.limit(20)
 input.show()
 inp.show()
