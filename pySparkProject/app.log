@@ -1,0 +1,8 @@
+2022-08-23 02:59:47,881 - WARNING - This will get logged to a file
+2022-08-23 02:59:47,881 - INFO - This is an info message
+2022-08-23 02:59:47,881 - WARNING - This is a warning message
+2022-08-23 02:59:47,881 - ERROR - This is an error message
+2022-08-23 02:59:47,881 - CRITICAL - This is a critical message
+2022-08-23 02:59:52,608 - INFO - This is an info message
+2022-08-23 03:00:08,800 - ERROR - Exception occurred
+NoneType: None
