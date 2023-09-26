@@ -1,0 +1,20 @@
+This is a sample file to test file upload to s3 using python from local
+
+commands and steps:
+
+1)first install awscli
+
+ pip instal awscli
+2)aws configure
+provide access key :
+Secret access key:
+3)to create bucket:
+aws s3 mb bucket_created_from_local_cli
+4)uplaod file to bucket:
+
+aws s3 cp 'C:\Users\PRADEEP\PycharmProjects\Python-AWS\test_python-s3_file_upload.txt'  's3://bucket-created-from-local-cli/'
+
+5)for downloading
+
+aws s3 cp 's3://bucket-created-from-local-cli/6c014ddc6e4430af7ac4a21f4dfb60ef.png' 'C:\Users\PRADEEP\PycharmProjects\Python-AWS\'
+
