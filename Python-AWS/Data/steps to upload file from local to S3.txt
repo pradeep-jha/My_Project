@@ -4,8 +4,9 @@ commands and steps:
 
 1)first install awscli
 
- pip instal awscli
-2)aws configure
+ pip install awscli
+2)execute command:
+aws configure
 provide access key :
 Secret access key:
 3)to create bucket:
