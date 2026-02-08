@@ -6,9 +6,10 @@
     </content>
     <content url="jar://C:/spark-3.2.0-bin-hadoop3.2/python/lib/py4j-0.10.9.2-src.zip!/" />
     <content url="jar://C:/spark-3.2.0-bin-hadoop3.2/python/lib/pyspark.zip!/" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="First_Project" />
     <orderEntry type="module" module-name="pythonProject" />
+    <orderEntry type="module" module-name="Python-AWS" />
   </component>
 </module>

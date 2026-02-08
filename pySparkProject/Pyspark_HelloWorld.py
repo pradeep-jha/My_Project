@@ -19,7 +19,11 @@ spark=SparkSession.builder.enableHiveSupport().appName("spark app").master("loca
 
 spark.sparkContext.setLogLevel("WARN")
 '''*******Word count by creating RDD******'''
+<<<<<<< HEAD
 input_rdd=spark.sparkContext.textFile(r"C:\Users\PRADEEP\PycharmProjects\First_Project\pySparkProject\inputs\data.csv")
+=======
+input_rdd=spark.sparkContext.textFile(r"C:\Users\PRADEEP\PycharmProjects\My_Project\pySparkProject\inputs\data.csv")
+>>>>>>> e7c43cd (Remove secrets and add .gitignore)
 print(input_rdd.getNumPartitions())
 cnt=input_rdd.mapPartitions(lambda it: [sum(1 for _ in it)])
 # print(cnt.collect())

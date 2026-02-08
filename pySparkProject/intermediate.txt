@@ -1,0 +1,7 @@
+Employee Data
+Employee ID Name Department Position Salary
+101 Alice Johnson HR Manager $80,000
+102 Bob Smith IT Developer $90,000
+103 Catherine Lee Finance Analyst $85,000
+104 David Brown Marketing Executive $70,000
+105 Ella White Sales Representative $60,000
